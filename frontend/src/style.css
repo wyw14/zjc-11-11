@@ -242,3 +242,21 @@ textarea {
   content: '...';
   animation: pulse 1.2s ease-in-out infinite;
 }
+
+@media print {
+  .app-header,
+  .app-footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: #333;
+    font-size: 12pt;
+  }
+
+  .app-main {
+    padding: 0;
+  }
+}

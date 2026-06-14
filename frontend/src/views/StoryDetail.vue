@@ -3,6 +3,7 @@
     <div class="container">
       <div class="back-bar">
         <router-link to="/" class="back-link">← 返回故事广场</router-link>
+        <button class="btn-print no-print" @click="handlePrint">🖨️ 打印阅读</button>
       </div>
 
       <div v-if="loading" class="loading card">正在加载故事...</div>
@@ -244,6 +245,10 @@ function scrollToBottom() {
   window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
 }
 
+function handlePrint() {
+  window.print()
+}
+
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
@@ -255,6 +260,22 @@ onMounted(loadStory)
 <style scoped>
 .back-bar {
   margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-print {
+  background: var(--surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.btn-print:hover {
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 .back-link {
@@ -535,6 +556,124 @@ onMounted(loadStory)
   }
   .bubble-wrapper {
     max-width: calc(100% - 48px);
+  }
+}
+
+@media print {
+  .no-print,
+  .back-bar,
+  .write-section,
+  .locked-section,
+  .progress-section {
+    display: none !important;
+  }
+
+  .story-detail {
+    background: white;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .card {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    background: white;
+  }
+
+  .story-header {
+    margin-bottom: 24px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+  }
+
+  .story-title {
+    font-size: 22pt;
+  }
+
+  .story-stats {
+    margin-bottom: 0;
+  }
+
+  .stat {
+    background: none;
+    padding: 4px 0;
+  }
+
+  .stat-value strong {
+    font-size: 14pt;
+    color: #333;
+  }
+
+  .chat-section {
+    margin-bottom: 0;
+  }
+
+  .section-title {
+    font-size: 14pt;
+    border-bottom: 1px solid #999;
+  }
+
+  .chat-list {
+    gap: 16px;
+  }
+
+  .bubble-row {
+    flex-direction: row !important;
+    gap: 10px;
+    page-break-inside: avoid;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    box-shadow: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .bubble-wrapper {
+    max-width: calc(100% - 42px);
+  }
+
+  .bubble-meta {
+    margin-bottom: 2px;
+  }
+
+  .bubble {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: white !important;
+    color: #333 !important;
+  }
+
+  .bubble-right {
+    background: #f9f9f9 !important;
+  }
+
+  .bubble p {
+    font-size: 11pt;
+    line-height: 1.8;
+  }
+
+  .bubble-footer {
+    border-top: 1px dashed #ddd;
+  }
+
+  .char-count,
+  .bubble-order {
+    color: #999 !important;
+  }
+
+  .tag {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 </style>
